@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+html, body {
+  scroll-behavior: smooth;
+}
+
+.mouse {
+  background: hsla(0, 0%, 80%, 0) linear-gradient(transparent, transparent 50%, transparent 0, transparent);
+  position: relative;
+  height: 50px;
+  border-radius: 100px;
+  background-size: 100% 200%;
+  animation: colorSlide 10s linear infinite, nudgeMouse 10s ease-out infinite;
+}
+
+.buy-entry-now-wrapper {
+  --shiny-cta-bg: #000;
+  --shiny-cta-bg-subtle: #1a1818;
+  --shiny-cta-fg: #fff;
+  --shiny-cta-highlight: #be9f56;
+  --shiny-cta-highlight-subtle: #be9f76;
+  --gradient-angle: 0deg; /* Added default value */
+}
+
+.buy-entry-now-wrapper .shiny-cta {
+  --transition: 800ms cubic-bezier(0.25, 1, 0.5, 1);
+  transition: var(--transition);
+  transition-property: --gradient-angle-offset, --gradient-percent, --gradient-shine;
+
+  border: 1px solid transparent;
+  color: var(--shiny-cta-fg);
+  background: 
+    linear-gradient(var(--shiny-cta-bg), var(--shiny-cta-bg)) padding-box, 
+    conic-gradient(
+      from calc(var(0deg) - var(--gradient-angle-offset)), 
+      transparent, 
+      var(--shiny-cta-highlight) var(--gradient-percent), 
+      var(--gradient-shine) calc(var(--gradient-percent) * 2), 
+      var(#be9f56) calc(var(--gradient-percent) * 3), 
+      transparent calc(var(--gradient-percent) * 4)
+    ) border-box;
+    
+  box-shadow: inset 0 0 0 1px var(#1a1818);
+  animation: gradient-angle linear infinite var(--duration);
+  width: 230px;
+}
