@@ -31,6 +31,11 @@ export default {
         },
       },
     },
+    fontSize: {
+      base_text_smallest: "0.75rem", // Adjust as needed
+      base_text_lg: "1.125rem",
+      base_text_3xl: "1.875rem",
+    },
   },
   plugins: [
     require('tailwind-scrollbar-hide'),

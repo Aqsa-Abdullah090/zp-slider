@@ -1,17 +1,14 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import { RootState } from "@/store";
-import clsx from "clsx";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import CenterNavItems from "./center-nav-items";
-import { NAV_BEHEIVIOURS } from "@/lib/constants";
+import PropTypes from "prop-types";
+import clsx from "clsx";
 import { AnimatePresence, motion } from "framer-motion";
+import CenterNavItems from "./center-nav-items";
+import LeftNavItems from "./left-nav-items";
+import RightNavItems from "./right-nav-items";
 
-const MiniNav = ({ page }: { page: string }) => {
-  const { isFixedVisible, navbarColor } = useSelector(
-    (state: RootState) => state.navbar
-  );
+const MiniNav = ({ page, isFixedVisible, navbarColor }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const [preventClose, setPreventClose] = useState(false);
@@ -22,7 +19,6 @@ const MiniNav = ({ page }: { page: string }) => {
       const collapseTimeout = setTimeout(() => {
         setExpanded(false);
       }, 500);
-
       return () => clearTimeout(collapseTimeout);
     }
   }, [isHovered]);
@@ -68,7 +64,6 @@ const MiniNav = ({ page }: { page: string }) => {
     window.addEventListener("scroll", handleScroll);
     window.addEventListener("click", handleScroll);
 
-    // Clean up the event listener on component unmount
     return () => {
       document.body.removeEventListener("mouseleave", handleMouseLeave);
       window.removeEventListener("scroll", handleScroll);
@@ -80,33 +75,23 @@ const MiniNav = ({ page }: { page: string }) => {
     <div
       className={clsx(
         "h-20 3xl:h-28 fixed top-0 left-0 w-full z-10 flex justify-center items-start group",
-        isFixedVisible ? "block" : "hidden"
+        isFixedVisible || isHovered ? "block" : "hidden"
       )}
     >
       <header
         className={clsx(
-          "transition-all ease-in-out w-[161px] lg:w-[267px] 3xl:w-[361px] hover:w-full overflow-hidden hover:-ml-[1px] group-hover:opacity-100 ",
+          "transition-all ease-in-out w-[161px] lg:w-[267px] 3xl:w-[361px] hover:w-full overflow-hidden hover:-ml-[1px] group-hover:opacity-100",
           expanded ? "duration-[0.7s] delay-[2000ms]" : "duration-[0.4s]",
           isCenterOut ? "opacity-0" : "opacity-100",
-          isFixedVisible ? "translate-y-0" : "-translate-y-full",
-          navbarColor === NAV_BEHEIVIOURS.transparentBg && !reelsPage
-            ? "bg-transparent fill-white text-white"
-            : "",
-          navbarColor === NAV_BEHEIVIOURS.solidBg && !reelsPage
-            ? "bg-black text-white fill-white"
-            : "",
-          reelsPage && "bg-black text-white fill-white", // on reels page it is black,
-          navbarColor === NAV_BEHEIVIOURS.solidwhiteBg &&
-            "bg-white fill-black text-black"
+          isFixedVisible ? "translate-y-0" : "-translate-y-full"
         )}
         onTransitionEnd={handleExpandedNavbar}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={handleHoverEnd}
       >
-        <nav
-          className={`lg:h-[10vh] 3xl:h-[100px] flex items-center justify-between px-[30px]`}
-        >
+        <nav className="lg:h-[10vh] 3xl:h-[100px] flex items-center justify-between px-[30px]">
           <div className="flex items-center">
+            <LeftNavItems />
             <AnimatePresence>
               {reelsPage && expanded && (
                 <div className="overflow-hidden">
@@ -119,7 +104,7 @@ const MiniNav = ({ page }: { page: string }) => {
                       delay: isHovered ? 0.7 : 1,
                       ease: "linear",
                     }}
-                    className="pl-[5px] lg:pl-[40px] 2xl:pl-[75px] 3xl:pl-[70px] "
+                    className="pl-[5px] lg:pl-[40px] 2xl:pl-[75px] 3xl:pl-[70px]"
                   >
                     <img
                       src="/assets/forward_arrow.svg"
@@ -131,7 +116,6 @@ const MiniNav = ({ page }: { page: string }) => {
             </AnimatePresence>
           </div>
 
-          {/* parent div is the container to hide the links when they reach Zimo pro logo */}
           <div className="absolute inset-0 left-1/2 flex items-center justify-center -translate-x-1/2 overflow-hidden w-[85vw] 4xl:w-[88vw]">
             <div
               className={clsx(
@@ -145,10 +129,19 @@ const MiniNav = ({ page }: { page: string }) => {
               <CenterNavItems />
             </div>
           </div>
+          <div className="flex items-center space-x-5 lg:space-x-8 3xl:space-x-14">
+            <RightNavItems variant="fixed" expanded={expanded} />
+          </div>
         </nav>
       </header>
     </div>
   );
+};
+
+MiniNav.propTypes = {
+  page: PropTypes.string.isRequired,
+  isFixedVisible: PropTypes.bool.isRequired,
+  navbarColor: PropTypes.string.isRequired,
 };
 
 export default MiniNav;
