@@ -6,14 +6,14 @@ import Header from "./header";
 import Address from "./Address";
 import Footer from "./Footer";
 import MiniNavProvider from "./mini-nav-provider";
-import FooterPricing from "./FooterPricing";
 
 export default function Hero() {
   const mockData = {
-    agent_logo: "/logo.png",
-    price: "100",
-    currency: "USD",
-    completion_percentage: "75",
+    country_name: "USA",
+    region_state: "California",
+    city: "Los Angeles",
+    address_line_1: "123 Sunset Blvd",
+    id: "001",
   };
 
   return (
@@ -29,9 +29,9 @@ export default function Hero() {
         <div className="fixed bottom-0 w-full z-40">
           <Address />
         </div>
-        <FooterPricing data={mockData} />
       </div>
-      <Footer />
+      <Footer data={mockData} /> {/* ✅ Pass data to Footer */}
     </div>
   );
 }
+
