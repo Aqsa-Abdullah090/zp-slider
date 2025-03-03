@@ -12,7 +12,7 @@ function Footer({ data }) {
         "mb-6 lg:mb-4 2xl:mb-6 3xl:mb-8 px-4 lg:px-12"
       )}
     >
-      <div className="flex flex-wrap lg:flex-nowrap gap-1 lg:gap-3 items-center">
+      <div className="2xl:flex flex-wrap lg:flex-nowrap gap-1 lg:gap-3 items-center hidden">
         <a href="#">real estate</a>
         <LeftArrowWrapper />
         <a href="#">{data.country_name}</a>
