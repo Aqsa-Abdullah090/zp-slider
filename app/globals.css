@@ -25,34 +25,17 @@ html, body {
   scroll-behavior: smooth;
 }
 
-.mouse {
+/* .mouse {
   background: hsla(0, 0%, 80%, 0) linear-gradient(transparent, transparent 50%, transparent 0, transparent);
   position: relative;
   height: 50px;
   border-radius: 100px;
   background-size: 100% 200%;
   animation: colorSlide 10s linear infinite, nudgeMouse 10s ease-out infinite;
-}
+} */
 
-.buy-entry-now-wrapper {
-  position: relative;
-  background: linear-gradient(to right, black 50%, #be9f56 150%);
-  transition: background-position 0.4s ease;
-  background: linear-gradient(var(#000000), var(#000000)) padding-box,
-    conic-gradient(
-      from calc(var(--gradient-angle) - var(--gradient-angle-offset)),
-      transparent,
-      var(--shiny-cta-highlight) var(--gradient-percent),
-      var(--gradient-shine) calc(var(--gradient-percent) * 2),
-      var(--shiny-cta-highlight) calc(var(--gradient-percent) * 3),
-      transparent calc(var(--gradient-percent) * 4)
-    ) border-box;
-  box-shadow: inset 0 0 0 1px var(--shiny-cta-bg-subtle);
-}
 
-.buy-entry-now-wrapper:hover {
-  background-position: right center;
-}
+
 
 
 
