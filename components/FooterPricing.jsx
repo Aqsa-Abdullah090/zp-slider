@@ -7,19 +7,29 @@ import Timer from "./text-section/Timer";
 
 function FooterPricing({ data }) {
   const footerRef = useRef(null);
+  const hasAnimated = useRef(false); // ✅ Fix: Define useRef to track animation state
 
   useEffect(() => {
-    if (footerRef.current) {
-      gsap.set(footerRef.current, { left: "100vw", opacity: 0 }); // Start hidden
+    const handleScroll = () => {
+      if (!hasAnimated.current) { // ✅ Check if animation has already run
+        if (footerRef.current) {
+          gsap.set(footerRef.current, { left: "100vw", opacity: 0 }); // Start hidden
 
-      gsap.to(footerRef.current, {
-        left: "42vw", // Move to final position
-        opacity: 1,
-        duration: 1.5,
-        ease: "power3.out",
-        delay: 0.5, // Add a slight delay
-      });
-    }
+          gsap.to(footerRef.current, {
+            left: "42vw", // Move to final position
+            opacity: 1,
+            duration: 1.5,
+            ease: "power3.out",
+            delay: 0.5, // Add a slight delay
+          });
+
+          hasAnimated.current = true; // ✅ Prevent repeated animations
+        }
+      }
+    };
+
+    window.addEventListener("wheel", handleScroll);
+    return () => window.removeEventListener("wheel", handleScroll);
   }, []);
 
   if (!data) {
@@ -84,3 +94,4 @@ function FooterPricing({ data }) {
 }
 
 export default FooterPricing;
+
