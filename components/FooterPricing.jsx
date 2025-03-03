@@ -39,7 +39,7 @@ function FooterPricing({ data }) {
   return (
     <div
       ref={footerRef}
-      className="flex gap-4 3xl:gap-8 absolute bottom-0 lg:h-[70px] 3xl:h-[218px] footer-pricing"
+      className="flex gap-4 3xl:gap-8 absolute bottom-0 lg:h-[70px] 3xl:h-[218px] footer-pricing opacity-0"
     >
       <section className="flex lg:h-[100px] 3xl:h-[218px]">
         {/* Left Section: Agent Logo */}
